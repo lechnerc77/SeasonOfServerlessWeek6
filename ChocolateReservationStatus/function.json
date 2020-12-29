@@ -1,0 +1,25 @@
+{
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "delete"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "name": "reservation",
+      "type": "durableClient",
+      "direction": "in"
+    }
+  ],
+  "scriptFile": "../dist/ChocolateReservationStatus/index.js"
+}

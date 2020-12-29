@@ -1,0 +1,115 @@
+### Check for wrong data input when reserving
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian"
+}
+
+### Check for wrong datat input when fetching the status
+GET  http://localhost:7071/api/ChocolateReservationStatus HTTP/1.1
+
+####
+
+### Reserve a chocolate for Christian
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian",
+    "type": "Rocher Noir"
+}
+
+### Reserve the same chocolate for Linda
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Linda",
+    "type": "Rocher Noir"
+}
+
+### Try to reserve the same chocolate for Christian again
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian",
+    "type": "Rocher Noir"
+}
+
+### Try to reserve a different chocolate for Christian
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian",
+    "type": "Rocher Lait"
+}
+
+
+####
+
+### Reserve a already taken type chocolate for Petra => No Success
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Petra",
+    "type": "Rocher Noir"
+}
+
+### Reserve a different type chocolate for Petra
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Petra",
+    "type": "Rocher Lait"
+}
+
+####
+
+### Check reservation of Christian
+GET  http://localhost:7071/api/ChocolateReservationStatus?name=Christian HTTP/1.1
+
+### Check reservation of Petra
+GET  http://localhost:7071/api/ChocolateReservationStatus?name=Petra HTTP/1.1
+
+### Check reservation of Linda
+GET  http://localhost:7071/api/ChocolateReservationStatus?name=Linda HTTP/1.1
+
+####
+
+### Undo reservation for Christian
+DELETE   http://localhost:7071/api/ChocolateReservationStatus?name=Christian HTTP/1.1
+
+### Undo reservation for Petra
+DELETE   http://localhost:7071/api/ChocolateReservationStatus?name=Petra HTTP/1.1
+
+### Execute reservation for original wish of Petra
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Petra",
+    "type": "Rocher Noir"
+}
+
+### Retry reservation for Christian => No Success
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian",
+    "type": "Rocher Noir"
+}
+
+### Okay then we will reserve something different for Christian
+POST  http://localhost:7071/api/ReserveChocolate HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Christian",
+    "type": "Rocher Lait"
+}
